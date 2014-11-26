@@ -1,4 +1,5 @@
 
+#include <inttypes.h>
 #include "hadooprpc.h"
 #include "varint.h"
 #include "minmax.h"
@@ -368,6 +369,7 @@ hadoop_rpc_connect_namenode(struct namenode_state * state, const char * host, co
   return 0;
 
 fail:
+  perror("connect");
   pthread_mutex_unlock(&connection->mutex);
   hadoop_rpc_disconnect_namenode(state);
   return error;

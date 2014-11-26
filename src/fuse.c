@@ -12,6 +12,7 @@
 
 #define FUSE_USE_VERSION 26
 
+#include <inttypes.h>
 #include <fuse.h>
 #include <stdio.h>
 #include <string.h>
@@ -1696,8 +1697,11 @@ end:
 static
 void * hadoop_fuse_init(struct fuse_conn_info * conn)
 {
+#ifdef FUSE_CAP_ATOMIC_O_TRUNC
   conn->want |= FUSE_CAP_ATOMIC_O_TRUNC;
   conn->capable |= FUSE_CAP_ATOMIC_O_TRUNC;
+#endif
+  conn=conn;
   return fuse_get_context()->private_data;
 }
 
