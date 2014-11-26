@@ -20,10 +20,10 @@ build/native-hdfs-fuse: src/*.c src/*.h build/proto build
 	$(UNCRUSTIFY) proto/*.[ch] src/*.[ch]
 	$(CC) -o build/native-hdfs-fuse proto/*.c src/*.c $(CCFLAGS)
 
-all: CC += -DNDEBUG
+all: CC += -DNDEBUG -D_FILE_OFFSET_BITS=64 -L/usr/local/lib -lprotobuf-c -lfuse -pthread
 all: build/native-hdfs-fuse
 
-debug: CC += -DDEBUG -g3
+debug: CC += -DDEBUG -g3 -D_FILE_OFFSET_BITS=64 -L/usr/local/lib -lprotobuf-c -lfuse -pthread
 debug: build/native-hdfs-fuse
 
 install:
